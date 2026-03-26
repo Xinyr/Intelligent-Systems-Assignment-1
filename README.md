@@ -5,6 +5,3 @@ Members:
 2. Enoch Eren CHUA, 104401704
 3. Celester - 104398233
 4. Nicholina - 104395470
-
-
-bbbbbbbbbbbbbbbbb
