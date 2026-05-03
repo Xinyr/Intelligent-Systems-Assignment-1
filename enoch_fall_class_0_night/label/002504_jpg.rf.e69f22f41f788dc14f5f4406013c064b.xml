@@ -1,0 +1,27 @@
+<annotation>
+	<folder></folder>
+	<filename>002504_jpg.rf.e69f22f41f788dc14f5f4406013c064b.jpg</filename>
+	<path>002504_jpg.rf.e69f22f41f788dc14f5f4406013c064b.jpg</path>
+	<source>
+		<database>roboflow.ai</database>
+	</source>
+	<size>
+		<width>416</width>
+		<height>416</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fall</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<bndbox>
+			<xmin>100</xmin>
+			<xmax>260</xmax>
+			<ymin>228</ymin>
+			<ymax>332</ymax>
+		</bndbox>
+	</object>
+</annotation>
