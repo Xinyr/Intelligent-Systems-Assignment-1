@@ -1,16 +1,20 @@
 import os
 import cv2
 import random
+import shutil
 
 IMAGE_DIR = r"C:\Users\User\Desktop\intelligent system\Intelligent-Systems-Assignment-1\dataset\fall_dataset\images\train"
 LABEL_DIR = r"C:\Users\User\Desktop\intelligent system\Intelligent-Systems-Assignment-1\dataset\fall_dataset\labels\train"
 OUTPUT_DIR = r"C:\Users\User\Desktop\intelligent system\Intelligent-Systems-Assignment-1\dataset\fall_dataset"
+CLASSIFY_DIR = r"C:\Users\User\Desktop\intelligent system\Intelligent-Systems-Assignment-1\dataset\classify_dataset"
 
+# ── Create crop directories ──────────────────────────────────
 person_img_dir = os.path.join(OUTPUT_DIR, "crops", "person")
 nonperson_img_dir = os.path.join(OUTPUT_DIR, "crops", "non_person")
 os.makedirs(person_img_dir, exist_ok=True)
 os.makedirs(nonperson_img_dir, exist_ok=True)
 
+# ── Generate crops ───────────────────────────────────────────
 image_files = [f for f in os.listdir(IMAGE_DIR)
                if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
 
@@ -68,7 +72,6 @@ for img_file in image_files:
         rx2 = rx1 + patch_w
         ry2 = ry1 + patch_h
 
-        # Check no overlap with person boxes
         overlap = False
         for (bx1, by1, bx2, by2) in person_boxes:
             if not (rx2 < bx1 or rx1 > bx2 or ry2 < by1 or ry1 > by2):
@@ -84,6 +87,45 @@ for img_file in image_files:
                 saved += 1
         attempts += 1
 
-print(f"Done!")
-print(f"Person crops saved to: {person_img_dir}")
-print(f"Non-person crops saved to: {nonperson_img_dir}")
+print(f"Crops generated!")
+print(f"Person crops: {person_img_dir}")
+print(f"Non-person crops: {nonperson_img_dir}")
+
+# ── Create train / val / test split (70 / 15 / 15) ──────────
+# Delete old classify_dataset if exists
+if os.path.exists(CLASSIFY_DIR):
+    shutil.rmtree(CLASSIFY_DIR)
+    print("Old classify_dataset deleted.")
+
+for split in ['train', 'val', 'test']:
+    for cls in ['person', 'non_person']:
+        os.makedirs(os.path.join(CLASSIFY_DIR, split, cls), exist_ok=True)
+
+for cls in ['person', 'non_person']:
+    src_dir = os.path.join(OUTPUT_DIR, "crops", cls)
+    files = [f for f in os.listdir(src_dir)
+             if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
+
+    random.shuffle(files)
+
+    train_end = int(len(files) * 0.70)
+    val_end   = int(len(files) * 0.85)
+
+    train_files = files[:train_end]
+    val_files   = files[train_end:val_end]
+    test_files  = files[val_end:]
+
+    for f in train_files:
+        shutil.copy(os.path.join(src_dir, f),
+                    os.path.join(CLASSIFY_DIR, 'train', cls, f))
+    for f in val_files:
+        shutil.copy(os.path.join(src_dir, f),
+                    os.path.join(CLASSIFY_DIR, 'val', cls, f))
+    for f in test_files:
+        shutil.copy(os.path.join(src_dir, f),
+                    os.path.join(CLASSIFY_DIR, 'test', cls, f))
+
+    print(f"{cls}: {len(train_files)} train | {len(val_files)} val | {len(test_files)} test")
+
+print("\nDataset split complete!")
+print(f"Saved to: {CLASSIFY_DIR}")

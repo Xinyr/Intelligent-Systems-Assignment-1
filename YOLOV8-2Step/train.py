@@ -38,8 +38,16 @@ results = model.train(
     imgsz=224,
     batch=8,
     name="person_nonperson_classifier",
-    patience=10,
-    device=0
+    patience=20,
+    device='cpu',
+
+    # augmentation settings
+    flipud=0.5,
+    fliplr=0.5,
+    mosaic=1.0,
+    degrees=10.0,
+    translate=0.1,
+    scale=0.5
 )
 
 print("Training complete!")
