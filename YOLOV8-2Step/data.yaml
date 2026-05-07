@@ -1,0 +1,7 @@
+path: C:\Users\User\Desktop\intelligent system\Intelligent-Systems-Assignment-1\dataset\fall_dataset
+train: images/train
+val: images/val
+test: images/test
+
+nc: 3
+names: ['fall detected', 'walk', 'sit']
