@@ -1,0 +1,9 @@
+path: C:\Users\celes\Downloads\COS30018 Intelligent System\Assignment\dataset\fall_dataset
+train: images\split_train
+val: images\split_val
+test: images/test
+nc: 3
+names:
+- fall detected
+- walk
+- sit
