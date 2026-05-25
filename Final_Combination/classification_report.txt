@@ -1,0 +1,9 @@
+              precision    recall  f1-score   support
+
+        fall       0.80      0.47      0.59        60
+        walk       0.59      0.79      0.68        61
+         sit       0.67      0.52      0.58        62
+
+   micro avg       0.66      0.59      0.62       183
+   macro avg       0.69      0.59      0.62       183
+weighted avg       0.69      0.59      0.62       183
