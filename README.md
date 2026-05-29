@@ -7,4 +7,4 @@ Members:
 4. Nicholina - 104395470
 
 # Usage
-1. In ```Final_Combination```, run the notebook ```two_step_pipeline.ipynb```.
+1. In ```./Final_Combination```, run the notebook ```two_step_pipeline.ipynb```.
